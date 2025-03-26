@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { Sheet, SheetClose, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetTrigger} from '@/components/ui/sheet';
 import Image from 'next/image';
 import Link from 'next/link';
 import { sidebarLinks } from '@/constants';
