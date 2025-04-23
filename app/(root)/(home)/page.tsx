@@ -2,24 +2,33 @@ import { useEffect, useState } from 'react';
 import MeetingTypeList from "@/components/MeetingTypeList";
 
 const Home = () => {
-  const [now, setNow] = useState(new Date());
+  const [istDate, setIstDate] = useState(getISTTime());
 
   useEffect(() => {
-    const interval = setInterval(() => setNow(new Date()), 60000); // update every minute
+    const interval = setInterval(() => {
+      setIstDate(getISTTime());
+    }, 60000); // update every minute
     return () => clearInterval(interval);
   }, []);
 
-  const time = now.toLocaleTimeString('en-IN', {
+  function getISTTime() {
+    const utc = new Date().getTime() + new Date().getTimezoneOffset() * 60000;
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    return new Date(utc + istOffset);
+  }
+
+  const time = istDate.toLocaleTimeString('en-IN', {
     hour: '2-digit',
     minute: '2-digit',
-    hour12: true,
-    timeZone: 'Asia/Kolkata',
+    hour12: true
   });
 
-  const date = new Intl.DateTimeFormat('en-IN', {
-    dateStyle: 'full',
-    timeZone: 'Asia/Kolkata',
-  }).format(now);
+  const date = istDate.toLocaleDateString('en-IN', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
   return (
     <section className="flex size-full flex-col gap-5 text-white">
